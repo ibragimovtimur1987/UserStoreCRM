@@ -20,7 +20,7 @@ namespace UserStore.DAL.Entities
 
         public DateTime Create { get; set; }
 
-        
+        public bool Scanned { get; set; }
 
     }
 }

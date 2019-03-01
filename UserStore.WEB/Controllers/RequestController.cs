@@ -34,13 +34,20 @@ namespace UserStore.Web.Controllers
             List<RequestViewModel> RequestViews = RequestService.GetRequests().Select(x=>new RequestViewModel(x, currentUser)).ToList();
             return View(RequestViews.ToPagedList(pageNumber, pageSize));
         }
-        // Просмотр
-        public ActionResult Details(int id)
-        {
-            Request Request = RequestService.GetRequest(id);
-            RequestViewModel RequestViewModel = new RequestViewModel(Request);
-            return PartialView("Details", RequestViewModel);
-        }
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Index(RequestViewModel requestViewModel)
+        //{
+        //    return RedirectToAction("Index");
+        //}
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Edit(VideoViewModel videoViewModel)
+        //{
+        //    Video video = videoViewModel.GetVideo();
+        //    videoService.UpdateVideo(video);
+        //    return RedirectToAction("Index");
+        //}
         // Добавление
         public ActionResult Create()
         {
@@ -55,21 +62,6 @@ namespace UserStore.Web.Controllers
             RequestService.AddRequest(Request, User.Identity.GetUserId(), file);
             return RedirectToAction("Index");
         }
-        // Редактирование
-        public ActionResult Edit(int id)
-        {
-            Request Request = RequestService.GetRequest(id);
-            RequestViewModel RequestViewModel = new RequestViewModel(Request);
-            return PartialView("Edit", RequestViewModel);
-        }
-        //// Редактирование
-        [HttpPost]
-        [ValidateAntiForgeryToken]       
-        public ActionResult Edit(RequestViewModel RequestViewModel, HttpPostedFileBase file)
-        {
-            Request Request = RequestViewModel.CreateRequest();
-            RequestService.UpdateRequest(Request, file);
-            return RedirectToAction("Index");
-        }
+
     }
 }

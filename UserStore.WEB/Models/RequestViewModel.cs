@@ -26,8 +26,8 @@ namespace UserStore.Models
         [Display(Name = "Время создания")]
         [Required]
         public DateTime Create { get; set; }
-
-
+        [Display(Name = "Просмотрено")]
+        public bool Scanned { get; set; }
         public RequestViewModel()
         {
 
