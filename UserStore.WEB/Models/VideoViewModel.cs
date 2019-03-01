@@ -11,30 +11,22 @@ namespace UserStore.Models
     public class RequestViewModel
     {
         public int Id { get; set; }
-        [Display(Name = "Название")]
+        [Display(Name = "Тема")]
         [Required]
-        public string Title { get; set; }
-        [Display(Name = "Описание")]
+        public string Theme { get; set; }
+        [Display(Name = "Сообщение")]
         [Required]
-        public string Note { get; set; }
-        [Display(Name = "Режиссёр")]
+        public string Message { get; set; }
+        [Display(Name = "Почта клиента")]
         [Required]
-        public string Producer { get; set; }
-        [Display(Name = "Год выпуска")]
+        public string Email { get; set; }
+        [Display(Name = "Прикрепленный файл")]
         [Required]
-        public int? Year { get; set; }
-        [Display(Name = "Постер")]
+        public string AttachmentLink { get; set; }
+        [Display(Name = "Время создания")]
         [Required]
-        public byte[] Poster{ get; set; }
+        public DateTime Create { get; set; }
 
-        public string ContentPath { get; set; }
-
-        public ApplicationUser Author { get; set; }
-
-        [Display(Name = "Опубликовал")]
-        public string AuthorUserName { get; set; }
-
-        public bool IsAuthor { get; set; }
 
         public RequestViewModel()
         {
@@ -48,20 +40,16 @@ namespace UserStore.Models
         public RequestViewModel(Request Request,string currentUserId)
         {
             FillFields(Request);
-            IsAuthor = Author?.Id == currentUserId;
         }
 
         private void FillFields(Request Request)
         {
             Id = Request.Id;
-            Title = Request.Title;
-            Note = Request.Note;
-            Producer = Request.Producer;
-            Year = Request.Year;
-            Poster = Request.Poster;
-            ContentPath = Request.ContentPath;
-            Author = Request?.Author;
-            AuthorUserName = Request?.Author?.UserName;
+            Theme = Request.Theme;
+            Message = Request.Message;
+            if(Request.Author!=null) Email = Request.Author.Email;
+            AttachmentLink = Request.AttachmentLink;
+            Create = Request.Create;
         }
 
         public Request CreateRequest()

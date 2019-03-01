@@ -17,32 +17,27 @@
     <table id="dtBasicExample" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
         <thead>
             <tr>
-                <th>Название</th>
-                <th>Описание</th>
-                <th>Год выпуска</th>
-                <th>Режиссёр</th>
-                <th>Опубликовал</th>
-                <th>Постер</th>
+                <th>Тема</th>
+                <th>Сообщение</th>
+                <th>Почта клиента</th>
+                <th>Прикрепленный файл</th>
+                <th>Время создания</th>
             </tr>
         </thead>
         <tbody>
             @foreach (var Request in Model)
             {
             <tr>
-                <td>@Request.Title</td>
-                <td>@Request.Note</td>
-                <td>@Request.Year</td>
-                <td>@Request.Producer</td>
-                <td>@Request.AuthorUserName</td>
-                <td><img src="data:image;base64,@System.Convert.ToBase64String(Request.Poster)" width="80" height="80" /></td>
+                <td>@Request.Theme</td>
+                <td>@Request.Message</td>
+                <td>@Request.Email</td>
+                <td>@Request.AttachmentLink</td>
+                <td>@Request.Create</td>
                 <td>
                     @Html.ActionLink("Смотреть", "Details", "Request", new { id = Request.Id },
-                        new { @class = "viewDialog",  data_dialog_title = "Описание фильма" }) 
-                    @if (Request.IsAuthor)
-                    {
+                        new { @class = "viewDialog",  data_dialog_title = "Описание фильма" })                    
                           @Html.ActionLink("Изменить", "Edit", "Request", new { id = Request.Id },
                           new { @class = "viewDialog", data_dialog_title = "Редактирование фильма" });
-                    }
                 </td>
             </tr>
             }

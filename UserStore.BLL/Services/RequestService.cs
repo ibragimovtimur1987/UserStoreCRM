@@ -60,14 +60,29 @@ namespace UserStore.BLL.Services
         {
             if (Request == null)
                 throw new Exception("Видео не найдено");
-            if(file!=null) Request.Poster = file.InputStream.ToBytes();
+            if (file != null)
+            {
+                string path = AppDomain.CurrentDomain.BaseDirectory + "UploadedFiles/";
+                string filename = Path.GetFileName(file.FileName);
+                string pathToFile = Path.Combine(path, filename);
+                if (filename != null) file.SaveAs(pathToFile);
+                Request.AttachmentLink = pathToFile;
+            }
             Database.Requests.Update(Request);
             Database.Save();
         }
         public void AddRequest(Request Request,string currentUserId, HttpPostedFileBase file)
         {
             Request.Author = GetApplicationUser(currentUserId);
-            if (file != null) Request.Poster = file.InputStream.ToBytes() ;
+            if (file != null)
+            {
+                string path = AppDomain.CurrentDomain.BaseDirectory + "App_Data/uploads/";
+                string filename = Path.GetFileName(file.FileName);
+                string pathToFile = Path.Combine(path, filename);
+                if (filename != null) file.SaveAs(pathToFile);
+                Request.AttachmentLink = pathToFile;
+            }
+            Request.Create = DateTime.Now;
             Database.Requests.Create(Request);
             Database.Save();
         }

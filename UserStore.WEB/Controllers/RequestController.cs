@@ -59,7 +59,6 @@ namespace UserStore.Web.Controllers
         public ActionResult Edit(int id)
         {
             Request Request = RequestService.GetRequest(id);
-            Session["Poster"] = Request.Poster;
             RequestViewModel RequestViewModel = new RequestViewModel(Request);
             return PartialView("Edit", RequestViewModel);
         }
@@ -69,7 +68,6 @@ namespace UserStore.Web.Controllers
         public ActionResult Edit(RequestViewModel RequestViewModel, HttpPostedFileBase file)
         {
             Request Request = RequestViewModel.CreateRequest();
-            if (file == null && Session["Poster"]!=null) Request.Poster = (byte[])Session["Poster"];
             RequestService.UpdateRequest(Request, file);
             return RedirectToAction("Index");
         }

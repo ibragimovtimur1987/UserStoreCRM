@@ -10,19 +10,17 @@ namespace UserStore.DAL.Entities
     {
         public int Id { get; set; }
 
-        public string Title { get; set; }
+        public string Theme { get; set; }
 
-        public string Note { get; set; }
-
-        public string Producer { get; set; }
+        public string Message { get; set; }
 
         public ApplicationUser Author { get; set; }
 
-        public int? Year { get; set; }
+        public string AttachmentLink { get; set; }
 
-        public string ContentPath { get; set; }
+        public DateTime Create { get; set; }
 
-        public byte[] Poster { get; set; }
+        
 
     }
 }
