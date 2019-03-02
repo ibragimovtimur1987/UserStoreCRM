@@ -7,8 +7,12 @@
 <html>
 <head>
     <title></title>
-    @Scripts.Render("~/bundles/js/datatables")
-    @Styles.Render("~/bundles/css/datatables")
+    @section Scripts{
+        @Scripts.Render("~/bundles/requestView")
+    }
+    }
+    @*@Scripts.Render("~/bundles/js/datatables")
+        @Styles.Render("~/bundles/css/datatables")*@
 </head>
 <body>
     <h2>Список заявок</h2>
@@ -20,11 +24,13 @@
                 <th>Почта клиента</th>
                 <th>Прикрепленный файл</th>
                 <th>Время создания</th>
+                <th>Просмотрено</th>
             </tr>
         </thead>
         <tbody>
             @foreach (var Request in Model)
             {
+
             <tr>
                 <td>@Request.Id</td>
                 <td>@Request.Theme</td>
@@ -32,15 +38,9 @@
                 <td>@Request.Email</td>
                 <td>@Request.AttachmentLink</td>
                 <td>@Request.Create</td>
-                <td>@Html.CheckBoxFor(x=> Request.Scanned,
-                  new Dictionary<string, object>{
-                     {"id", "p1isCompleted"},
-                     {"onclick","updateRequest.call(this)"},
-                     {"data-role", "flipswitch"},
-                     {"data-on-text", "complete"},
-                     {"data-off-text", "incomplete"},
-                     {"data-wrapper-class", "custom-size-flipswitch"}}))</td>
-            </tr>
+                <td>@Request.Scanned</td>
+                 <td><input id="Scanned"  type="checkbox" onclick="updateRequest(@Request.Id,this)" /></td>
+                </tr>
             }
         </tbody>
     </table>

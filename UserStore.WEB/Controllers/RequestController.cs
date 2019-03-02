@@ -35,7 +35,7 @@ namespace UserStore.Web.Controllers
             return View(RequestViews.ToPagedList(pageNumber, pageSize));
         }
         [HttpPost]
-        public ContentResult Index()
+        public ContentResult Index(RequestViewModel request)
         {
             return null;
         }
