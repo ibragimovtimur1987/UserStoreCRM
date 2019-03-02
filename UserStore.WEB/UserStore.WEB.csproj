@@ -185,7 +185,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Scripts\app\request.js" />
+    <Content Include="Scripts\app\requestView.js" />
     <Content Include="uploads\poster\Chrysanthemum.jpg" />
     <Content Include="uploads\poster\Tulips.jpg" />
     <Content Include="Content\bootstrap.css" />

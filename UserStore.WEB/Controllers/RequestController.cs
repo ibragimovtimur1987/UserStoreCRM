@@ -34,12 +34,11 @@ namespace UserStore.Web.Controllers
             List<RequestViewModel> RequestViews = RequestService.GetRequests().Select(x=>new RequestViewModel(x, currentUser)).ToList();
             return View(RequestViews.ToPagedList(pageNumber, pageSize));
         }
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Index(RequestViewModel requestViewModel)
-        //{
-        //    return RedirectToAction("Index");
-        //}
+        [HttpPost]
+        public ContentResult Index()
+        {
+            return null;
+        }
         //[HttpPost]
         //[ValidateAntiForgeryToken]
         //public ActionResult Edit(VideoViewModel videoViewModel)

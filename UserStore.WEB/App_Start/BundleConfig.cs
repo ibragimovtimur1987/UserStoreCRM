@@ -26,6 +26,9 @@ namespace UserStore
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
+            bundles.Add(new ScriptBundle("~/bundles/requestView").Include(
+                   "~/Scripts/app/requestView.js"));
+            
         }
     }
 }

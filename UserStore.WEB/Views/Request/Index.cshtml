@@ -32,7 +32,14 @@
                 <td>@Request.Email</td>
                 <td>@Request.AttachmentLink</td>
                 <td>@Request.Create</td>
-                <td>@Html.CheckBox("Scanned", false)</td>
+                <td>@Html.CheckBoxFor(x=> Request.Scanned,
+                  new Dictionary<string, object>{
+                     {"id", "p1isCompleted"},
+                     {"onclick","updateRequest.call(this)"},
+                     {"data-role", "flipswitch"},
+                     {"data-on-text", "complete"},
+                     {"data-off-text", "incomplete"},
+                     {"data-wrapper-class", "custom-size-flipswitch"}}))</td>
             </tr>
             }
         </tbody>
