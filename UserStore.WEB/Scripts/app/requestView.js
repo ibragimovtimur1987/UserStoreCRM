@@ -16,7 +16,7 @@ function updateRequest(id,here) {
         headers: {
         },
         success: function (response) {
-        
+            here.checked = true;
         }
     });
     }

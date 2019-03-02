@@ -14,7 +14,7 @@ namespace UserStore.BLL.Interfaces
         Task<OperationDetails> Create(UserDTO userDto);
         Task<ClaimsIdentity> Authenticate(UserDTO userDto);
         void AddRequest(Request Request, string currentUserId, HttpPostedFileBase file);
-        void UpdateRequest(Request Request, HttpPostedFileBase file);
+        void UpdateRequest(Request Request, HttpPostedFileBase file =null);
         Request GetRequest(int? id);
         IEnumerable<Request> GetRequests();
         ApplicationUser GetApplicationUser(string UserId);

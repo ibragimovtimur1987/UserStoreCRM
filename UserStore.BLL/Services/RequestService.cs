@@ -56,10 +56,10 @@ namespace UserStore.BLL.Services
         {
             return Database.Requests.GetAll();
         }
-        public void UpdateRequest(Request Request, HttpPostedFileBase file)
+        public void UpdateRequest(Request Request, HttpPostedFileBase file = null)
         {
             if (Request == null)
-                throw new Exception("Видео не найдено");
+                throw new Exception("Заявка не найдена");
             if (file != null)
             {
                 string path = AppDomain.CurrentDomain.BaseDirectory + "UploadedFiles/";
@@ -89,7 +89,7 @@ namespace UserStore.BLL.Services
         public Request GetRequest(int? id)
         {
             if (id == null)
-                throw new Exception("Видео не найдено");
+                throw new Exception("Заявка не найдена");
             return Database.Requests.Get(id.Value);
         }
         public void Dispose()

@@ -19,6 +19,7 @@
     <table id="dtBasicExample" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
         <thead>
             <tr>
+                <th>Id</th>
                 <th>Тема</th>
                 <th>Сообщение</th>
                 <th>Почта клиента</th>
@@ -38,8 +39,7 @@
                 <td>@Request.Email</td>
                 <td>@Request.AttachmentLink</td>
                 <td>@Request.Create</td>
-                <td>@Request.Scanned</td>
-                 <td><input id="Scanned"  type="checkbox" onclick="updateRequest(@Request.Id,this)" /></td>
+                <td><input id="Scanned" checked="@Request.Scanned" type="checkbox" onclick="updateRequest(@Request.Id,this)" /></td>
                 </tr>
             }
         </tbody>

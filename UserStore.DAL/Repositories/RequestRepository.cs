@@ -36,7 +36,8 @@ namespace UserStore.DAL.Repositories
 
         public void Update(Request Request)
         {
-            db.Entry(Request).State = EntityState.Modified;
+            db.Requests.Attach(Request);
+            db.Entry(Request).Property(x=>x.Scanned).IsModified = true;
         }
 
         public IEnumerable<Request> Find(Func<Request, Boolean> predicate)

@@ -50,6 +50,7 @@ namespace UserStore.Models
             if(Request.Author!=null) Email = Request.Author.Email;
             AttachmentLink = Request.AttachmentLink;
             Create = Request.Create;
+            Scanned = Request.Scanned;
         }
 
         public Request CreateRequest()
