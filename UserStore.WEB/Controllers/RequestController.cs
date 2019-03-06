@@ -41,14 +41,14 @@ namespace UserStore.Web.Controllers
             RequestService.UpdateRequest(request);
             return null;
         }
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Edit(VideoViewModel videoViewModel)
-        //{
-        //    Video video = videoViewModel.GetVideo();
-        //    videoService.UpdateVideo(video);
-        //    return RedirectToAction("Index");
-        //}
+        [HttpGet]
+        public ActionResult Download(string filepath)
+        {           
+            return File(
+                RequestService.DowloadFile(filepath), System.Net.Mime.MediaTypeNames.Application.Octet, Path.GetFileName(filepath));
+        }
+
+
         // Добавление
         public ActionResult Create()
         {

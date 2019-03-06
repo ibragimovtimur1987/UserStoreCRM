@@ -18,5 +18,6 @@ namespace UserStore.BLL.Interfaces
         Request GetRequest(int? id);
         IEnumerable<Request> GetRequests();
         ApplicationUser GetApplicationUser(string UserId);
+        byte[] DowloadFile(string filepath);
     } 
 }

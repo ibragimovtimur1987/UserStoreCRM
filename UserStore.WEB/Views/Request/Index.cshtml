@@ -10,7 +10,6 @@
     @section Scripts{
         @Scripts.Render("~/bundles/requestView")
     }
-    }
     @*@Scripts.Render("~/bundles/js/datatables")
         @Styles.Render("~/bundles/css/datatables")*@
 </head>
@@ -37,7 +36,9 @@
                 <td>@Request.Theme</td>
                 <td>@Request.Message</td>
                 <td>@Request.Email</td>
-                <td>@Request.AttachmentLink</td>
+                <td>
+                    @Html.ActionLink("Сачать файл", "Download",new { filepath = Request.AttachmentLink })
+                </td>
                 <td>@Request.Create</td>
                 <td><input id="Scanned" checked="@Request.Scanned" type="checkbox" onclick="updateRequest(@Request.Id,this)" /></td>
                 </tr>

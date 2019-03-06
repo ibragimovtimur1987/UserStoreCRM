@@ -60,14 +60,6 @@ namespace UserStore.BLL.Services
         {
             if (Request == null)
                 throw new Exception("Заявка не найдена");
-            if (file != null)
-            {
-                string path = AppDomain.CurrentDomain.BaseDirectory + "UploadedFiles/";
-                string filename = Path.GetFileName(file.FileName);
-                string pathToFile = Path.Combine(path, filename);
-                if (filename != null) file.SaveAs(pathToFile);
-                Request.AttachmentLink = pathToFile;
-            }
             Database.Requests.Update(Request);
             Database.Save();
         }
@@ -76,11 +68,13 @@ namespace UserStore.BLL.Services
             Request.Author = GetApplicationUser(currentUserId);
             if (file != null)
             {
-                string path = AppDomain.CurrentDomain.BaseDirectory + "App_Data/uploads/";
+                string pathToRoot = AppDomain.CurrentDomain.BaseDirectory + "App_Data\\uploads\\";
+                string pathFolder = "";
                 string filename = Path.GetFileName(file.FileName);
-                string pathToFile = Path.Combine(path, filename);
-                if (filename != null) file.SaveAs(pathToFile);
-                Request.AttachmentLink = pathToFile;
+                string pathToFileOutRoot = Path.Combine(pathFolder, filename);
+                string pathToFile = Path.Combine(pathToRoot, pathToFileOutRoot);
+                if (pathToFile != null) file.SaveAs(pathToFile);
+                Request.AttachmentLink = pathToFileOutRoot;
             }
             Request.Create = DateTime.Now;
             Database.Requests.Create(Request);
@@ -95,6 +89,30 @@ namespace UserStore.BLL.Services
         public void Dispose()
         {
             Database.Dispose();
+        }
+
+        public byte[] DowloadFile(string filepath)
+        {
+            string fullName = Path.Combine(GetBaseDir(), filepath);
+            byte[] fileBytes = GetFile(fullName);
+            return fileBytes;
+        }
+
+        private string GetBaseDir()
+        {
+            string path = AppDomain.CurrentDomain.BaseDirectory + @"App_Data\uploads\";
+            return path;
+        }
+
+        private byte[] GetFile(string s)
+        {
+
+            System.IO.FileStream fs = System.IO.File.OpenRead(s);
+            byte[] data = new byte[fs.Length];
+            int br = fs.Read(data, 0, data.Length);
+            if (br != fs.Length)
+                throw new System.IO.IOException(s);
+            return data;
         }
     } 
 }
