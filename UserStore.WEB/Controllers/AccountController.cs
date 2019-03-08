@@ -84,7 +84,7 @@ namespace UserStore.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterModel model)
         {
-           // await SetInitialDataAsync();
+            await SetInitialDataAsync();
 
             if (ModelState.IsValid)
             {
@@ -104,6 +104,18 @@ namespace UserStore.Controllers
                     ModelState.AddModelError(operationDetails.Property, operationDetails.Message);
             }
             return View(model);
+        }
+        private async Task SetInitialDataAsync()
+        {
+            await RequestService.SetInitialData(new UserDTO
+            {
+                Email = "someemail@mail.ru",
+                UserName = "someemail@mail.ru",
+                Password = "ad46D_ewr3",
+                Name = "Семен Семенович Павлов",
+                Address = "ул. Спортивная, д.31, кв.73",
+                Role = "admin",
+            }, new List<string> { "user", "admin" });
         }
     }
 }

@@ -27,7 +27,9 @@ namespace UserStore.BLL.Services
             if (user == null)
             {
                 user = new ApplicationUser { Email = userDto.Email, UserName = userDto.Email };
-                await Database.UserManager.CreateAsync(user, userDto.Password);           
+                await Database.UserManager.CreateAsync(user, userDto.Password);
+                // добавляем роль
+                await Database.UserManager.AddToRoleAsync(user.Id, userDto.Role);
                 await Database.SaveAsync();
                 return new OperationDetails(true, "Регистрация успешно пройдена", "");
             }
@@ -113,6 +115,21 @@ namespace UserStore.BLL.Services
             if (br != fs.Length)
                 throw new System.IO.IOException(s);
             return data;
+        }
+        // начальная инициализация бд
+        public async Task SetInitialData(UserDTO adminDto, List<string> roles)
+        {
+            foreach (string roleName in roles)
+            {
+                var role = await Database.RoleManager.FindByNameAsync(roleName);
+                if (role == null)
+                {
+                    role = new ApplicationRole { Name = roleName };
+                    await Database.RoleManager.CreateAsync(role);
+                }
+            }
+
+            await Create(adminDto);
         }
     } 
 }

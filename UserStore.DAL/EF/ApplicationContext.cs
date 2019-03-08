@@ -16,14 +16,6 @@ namespace UserStore.DAL.EF
         {
             protected override void Seed(ApplicationContext db)
             {
-                //for (int i = 0; i < 20; i++)
-                //{
-                //    string title = "Фильм " + i.ToString();
-                //    string note = "Описание " + i.ToString(); ;
-                //    string producer = "Режиссёр " + i.ToString();
-                //    db.Requests.Add(new Request { Title = title, Note = note, Producer = producer });
-                //}
-                //db.SaveChanges();
             }
         }
     }

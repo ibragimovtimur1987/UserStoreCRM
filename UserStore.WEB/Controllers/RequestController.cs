@@ -15,7 +15,7 @@ using AutoMapper;
 
 namespace UserStore.Web.Controllers
 {
-    [Authorize]
+    
     public class RequestController : Controller
     {
         // GET: Request
@@ -26,6 +26,7 @@ namespace UserStore.Web.Controllers
                 return HttpContext.GetOwinContext().GetUserManager<IRequestService>();
             }
         }
+        [Authorize(Roles = "admin")]
         public ActionResult Index(int? page)
         {
             int pageSize = 10;
@@ -35,6 +36,7 @@ namespace UserStore.Web.Controllers
             return View(RequestViews.ToPagedList(pageNumber, pageSize));
         }
         [HttpPost]
+        [Authorize(Roles = "admin")]
         public ContentResult Index(RequestViewModel requestViewModel)
         {
             Request request = requestViewModel.CreateRequest();
@@ -42,13 +44,14 @@ namespace UserStore.Web.Controllers
             return null;
         }
         [HttpGet]
+        [Authorize(Roles = "admin")]
         public ActionResult Download(string filepath)
         {           
             return File(
                 RequestService.DowloadFile(filepath), System.Net.Mime.MediaTypeNames.Application.Octet, Path.GetFileName(filepath));
         }
 
-
+        [Authorize]
         // Добавление
         public ActionResult Create()
         {
@@ -57,6 +60,7 @@ namespace UserStore.Web.Controllers
         // Добавление
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public ActionResult Create(RequestViewModel RequestViewModel, HttpPostedFileBase file)
         {
             Request Request = RequestViewModel.CreateRequest();
