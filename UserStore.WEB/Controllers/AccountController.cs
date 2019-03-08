@@ -34,11 +34,27 @@ namespace UserStore.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                int? par = 1;
-                return RedirectToAction("Index", "Request", par);
+                return CheckRole();
             }
             else
                 return View();
+        }
+
+        private ActionResult CheckRole()
+        {
+            int? par = 1;
+            if (HttpContext.User.IsInRole("admin"))
+            {
+                return RedirectToAction("Index", "Request", par);
+            }
+            else if (HttpContext.User.IsInRole("user"))
+            {
+                return RedirectToAction("Create", "Request");
+            }
+            else
+            {
+                return new HttpUnauthorizedResult();
+            }
         }
 
         [HttpPost]
@@ -62,8 +78,7 @@ namespace UserStore.Controllers
                     {
                         IsPersistent = true
                     }, claim);
-                    int? par = 1;
-                    return RedirectToAction("Index", "Request", par);
+                    return CheckRole();
                 }
             }
             return View(model);
@@ -111,7 +126,7 @@ namespace UserStore.Controllers
             {
                 Email = "someemail@mail.ru",
                 UserName = "someemail@mail.ru",
-                Password = "ad46D_ewr3",
+                Password = "ad57D_ewr45",
                 Name = "Семен Семенович Павлов",
                 Address = "ул. Спортивная, д.31, кв.73",
                 Role = "admin",
