@@ -67,6 +67,5 @@ namespace UserStore.Web.Controllers
             RequestService.AddRequest(Request, User.Identity.GetUserId(), file);
             return RedirectToAction("Index");
         }
-
     }
 }

@@ -37,7 +37,7 @@
                 <td>@Request.Message</td>
                 <td>@Request.Email</td>
                 <td>
-                    @Html.ActionLink("Сачать файл", "Download",new { filepath = Request.AttachmentLink })
+                    @Html.ActionLink("Скачать файл", "Download",new { filepath = Request.AttachmentLink })
                 </td>
                 <td>@Request.Create</td>
                 <td><input id="Scanned" checked="@Request.Scanned" type="checkbox" onclick="updateRequest(@Request.Id,this)" /></td>
