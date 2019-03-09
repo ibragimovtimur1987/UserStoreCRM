@@ -9,6 +9,9 @@ namespace UserStore.Models
 {
     public class RegisterModel
     {
+        [Display(Name = "Имя")]
+        [Required]
+        public string UserName { get; set; }
         [Display(Name = "Почтовый ящик")]
         [Required]
         public string Email { get; set; }

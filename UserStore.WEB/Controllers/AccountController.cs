@@ -65,7 +65,7 @@ namespace UserStore.Controllers
 
             if (ModelState.IsValid)
             {
-                UserDTO userDto = new UserDTO { Email = model.Email, Password = model.Password};
+                UserDTO userDto = new UserDTO { UserName = model.UserName, Password = model.Password};
                 ClaimsIdentity claim = await RequestService.Authenticate(userDto);
                 if (claim == null)
                 {
@@ -107,6 +107,7 @@ namespace UserStore.Controllers
                 {
                     Email = model.Email,
                     Password = model.Password,
+                    UserName= model.UserName,
                     Role = "user"
                 };
                 OperationDetails operationDetails = await RequestService.Create(userDto);

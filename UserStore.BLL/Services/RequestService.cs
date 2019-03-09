@@ -28,7 +28,7 @@ namespace UserStore.BLL.Services
             ApplicationUser user = await Database.UserManager.FindByEmailAsync(userDto.Email);
             if (user == null)
             {
-                user = new ApplicationUser { Email = userDto.Email, UserName = userDto.Email };
+                user = new ApplicationUser { Email = userDto.Email, UserName = userDto.UserName };
                 await Database.UserManager.CreateAsync(user, userDto.Password);
                 // добавляем роль
                 await Database.UserManager.AddToRoleAsync(user.Id, userDto.Role);
@@ -44,7 +44,7 @@ namespace UserStore.BLL.Services
         {
             ClaimsIdentity claim = null;
             // находим пользователя
-            ApplicationUser user = await Database.UserManager.FindAsync(userDto.Email, userDto.Password);
+            ApplicationUser user = await Database.UserManager.FindAsync(userDto.UserName, userDto.Password);
             // авторизуем его и возвращаем объект ClaimsIdentity
             if(user!=null)
                 claim= await Database.UserManager.CreateIdentityAsync(user,

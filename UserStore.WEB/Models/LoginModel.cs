@@ -9,9 +9,9 @@ namespace UserStore.Models
 {
     public class LoginModel
     {
-        [Display(Name = "Почтовый ящик")]
+        [Display(Name = "Имя пользователя")]
         [Required]
-        public string Email { get; set; }
+        public string UserName { get; set; }
         [Display(Name = "Пароль")]
         [Required]
         [DataType(DataType.Password)]
