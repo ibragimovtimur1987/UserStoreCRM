@@ -21,6 +21,7 @@
                 <th>Id</th>
                 <th>Тема</th>
                 <th>Сообщение</th>
+                <th>Имя клиента</th>
                 <th>Почта клиента</th>
                 <th>Прикрепленный файл</th>
                 <th>Время создания</th>
@@ -35,13 +36,14 @@
                 <td>@Request.Id</td>
                 <td>@Request.Theme</td>
                 <td>@Request.Message</td>
+                <td>@Request.UserName</td>
                 <td>@Request.Email</td>
                 <td>
-                    @Html.ActionLink("Скачать файл", "Download",new { filepath = Request.AttachmentLink })
+                    @Html.ActionLink("Скачать файл", "Download", new { filepath = Request.AttachmentLink })
                 </td>
                 <td>@Request.Create</td>
                 <td><input id="Scanned" checked="@Request.Scanned" type="checkbox" onclick="updateRequest(@Request.Id,this)" /></td>
-                </tr>
+            </tr>
             }
         </tbody>
     </table>

@@ -17,6 +17,9 @@ namespace UserStore.Models
         [Display(Name = "Сообщение")]
         [Required]
         public string Message { get; set; }
+        [Display(Name = "Имя клиента")]
+        [Required]
+        public string UserName { get; set; }
         [Display(Name = "Почта клиента")]
         [Required]
         public string Email { get; set; }
@@ -47,10 +50,15 @@ namespace UserStore.Models
             Id = Request.Id;
             Theme = Request.Theme;
             Message = Request.Message;
-            if(Request.Author!=null) Email = Request.Author.Email;
+            if (Request.Author != null)
+            {
+                Email = Request.Author.Email;
+                UserName = Request.Author.UserName;
+            }
             AttachmentLink = Request.AttachmentLink;
             Create = Request.Create;
             Scanned = Request.Scanned;
+           
         }
 
         public Request CreateRequest()
