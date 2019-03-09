@@ -18,7 +18,8 @@ namespace UserStore.BLL.Interfaces
         Request GetRequest(int? id);
         IEnumerable<Request> GetRequests();
         ApplicationUser GetApplicationUser(string UserId);
-        byte[] DowloadFile(string filepath);
+        byte[] DownloadFile(string filepath);
         Task SetInitialData(UserDTO adminDto, List<string> roles);
+        Task SendEmailAsync(Request Request);
     } 
 }

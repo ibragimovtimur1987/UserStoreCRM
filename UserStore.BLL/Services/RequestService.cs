@@ -10,6 +10,8 @@ using System.Collections.Generic;
 using System;
 using System.Web;
 using System.IO;
+using System.Net.Mail;
+using System.Net;
 
 namespace UserStore.BLL.Services
 {
@@ -93,7 +95,7 @@ namespace UserStore.BLL.Services
             Database.Dispose();
         }
 
-        public byte[] DowloadFile(string filepath)
+        public byte[] DownloadFile(string filepath)
         {
             string fullName = Path.Combine(GetBaseDir(), filepath);
             byte[] fileBytes = GetFile(fullName);
@@ -130,6 +132,17 @@ namespace UserStore.BLL.Services
             }
 
             await Create(adminDto);
+        }
+        public async Task SendEmailAsync(Request Request)
+        {
+            MailAddress from = new MailAddress("somemail@gmail.com", "Tom");
+            MailAddress to = new MailAddress("somemail@yandex.ru");
+            MailMessage mail = new MailMessage(from, to);
+            mail.Subject = Request.Theme;
+            mail.Body = Request.Message;
+            SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);
+            smtp.Credentials = new NetworkCredential("somemail@gmail.com", "mypassword");
+            await smtp.SendMailAsync(mail);
         }
     } 
 }

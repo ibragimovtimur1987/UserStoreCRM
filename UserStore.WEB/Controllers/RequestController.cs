@@ -12,6 +12,7 @@ using Microsoft.AspNet.Identity;
 using System.IO;
 using UserStore.Models;
 using AutoMapper;
+using System.Threading.Tasks;
 
 namespace UserStore.Web.Controllers
 {
@@ -48,7 +49,7 @@ namespace UserStore.Web.Controllers
         public ActionResult Download(string filepath)
         {           
             return File(
-                RequestService.DowloadFile(filepath), System.Net.Mime.MediaTypeNames.Application.Octet, Path.GetFileName(filepath));
+                RequestService.DownloadFile(filepath), System.Net.Mime.MediaTypeNames.Application.Octet, Path.GetFileName(filepath));
         }
 
         [Authorize]
@@ -61,10 +62,11 @@ namespace UserStore.Web.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public ActionResult Create(RequestViewModel RequestViewModel, HttpPostedFileBase file)
+        public async Task<ActionResult> Create(RequestViewModel RequestViewModel, HttpPostedFileBase file)
         {
             Request Request = RequestViewModel.CreateRequest();
             RequestService.AddRequest(Request, User.Identity.GetUserId(), file);
+            await RequestService.SendEmailAsync(Request);
             return RedirectToAction("Index");
         }
     }
