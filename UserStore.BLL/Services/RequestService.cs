@@ -137,15 +137,16 @@ namespace UserStore.BLL.Services
 
             await Create(adminDto);
         }
-        public async Task SendEmailAsync(Request Request)
+        public async Task SendEmailAsync(Request Request, HttpPostedFileBase file)
         {
-                MailAddress from = new MailAddress("somemail@gmail.com", "Tom");
-                MailAddress to = new MailAddress("somemail@yandex.ru");
+                MailAddress from = new MailAddress(Request.Author.Email, Request.Author.UserName);
+                MailAddress to = new MailAddress(Constants.AdminData.Email);
                 MailMessage mail = new MailMessage(from, to);
                 mail.Subject = Request.Theme;
                 mail.Body = Request.Message;
-                SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);
-                smtp.Credentials = new NetworkCredential("somemail@gmail.com", "mypassword");
+                SmtpClient smtp = new SmtpClient(Constants.SMTPSetting.Host, Constants.SMTPSetting.Port);
+                mail.Attachments.Add(new Attachment(file.InputStream, file.ContentType));
+            //smtp.Credentials = new NetworkCredential("somemail@gmail.com", "mypassword");
                 await smtp.SendMailAsync(mail);
         }
     } 

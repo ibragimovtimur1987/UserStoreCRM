@@ -9,6 +9,7 @@ using UserStore.BLL.DTO;
 using System.Security.Claims;
 using UserStore.BLL.Interfaces;
 using UserStore.BLL.Infrastructure;
+using static UserStore.BLL.Constants;
 
 namespace UserStore.Controllers
 {
@@ -125,11 +126,9 @@ namespace UserStore.Controllers
         {
             await RequestService.SetInitialData(new UserDTO
             {
-                Email = "someemail@mail.ru",
-                UserName = "someemail@mail.ru",
-                Password = "ad57D_ewr45",
-                Name = "Семен Семенович Павлов",
-                Address = "ул. Спортивная, д.31, кв.73",
+                Email = AdminData.Email,
+                UserName = AdminData.UserName,
+                Password = AdminData.Password,
                 Role = "admin",
             }, new List<string> { "user", "admin" });
         }

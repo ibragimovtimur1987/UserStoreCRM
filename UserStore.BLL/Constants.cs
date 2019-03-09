@@ -17,5 +17,16 @@ namespace UserStore.BLL
             public const string Manager = "manager";
             public const string User = "user";
         }
+        public static class AdminData
+        {
+            public const string Email = "someemail@mail.ru";
+            public const string UserName = "someemail@mail.ru";
+            public const string Password = "ad57D_ewr45";
+        }
+        public static class SMTPSetting
+        {
+            public const string Host = "smtp.gmail.com";
+            public const int Port = 587;
+        }
     }
 }

@@ -73,11 +73,11 @@ namespace UserStore.Web.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public ActionResult Create(RequestViewModel RequestViewModel, HttpPostedFileBase file)
+        public async Task<ActionResult> Create(RequestViewModel RequestViewModel, HttpPostedFileBase file)
         {
             Request Request = RequestViewModel.CreateRequest();
             RequestService.AddRequest(Request, User.Identity.GetUserId(), file);
-            //await RequestService.SendEmailAsync(Request);
+            await RequestService.SendEmailAsync(Request,file);
             return PartialView("Success");
         }
     }
