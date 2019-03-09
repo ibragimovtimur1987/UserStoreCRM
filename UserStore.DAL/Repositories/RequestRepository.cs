@@ -19,9 +19,9 @@ namespace UserStore.DAL.Repositories
             this.db = context;
         }
 
-        public IEnumerable<Request> GetAll()
+        public IQueryable<Request> GetAll()
         {
-            return db.Requests.Include("Author");
+            return db.Requests.AsNoTracking().Include("Author").AsQueryable();
         }
 
         public Request Get(int id)
@@ -40,13 +40,13 @@ namespace UserStore.DAL.Repositories
             db.Entry(Request).Property(x=>x.Scanned).IsModified = true;
         }
 
-        public IEnumerable<Request> Find(Func<Request, Boolean> predicate)
+        public IQueryable<Request> Find(Func<Request, Boolean> predicate)
         {
-            return db.Requests.Where(predicate).ToList();
+            return db.Requests.AsNoTracking().Where(predicate).AsQueryable();
         }
         public Request FindLastOrDefault(Func<Request, Boolean> predicate)
         {
-            return db.Requests.Include("Author").LastOrDefault(predicate);
+            return db.Requests.AsNoTracking().Include("Author").LastOrDefault(predicate);
         }
         public void Delete(int id)
         {

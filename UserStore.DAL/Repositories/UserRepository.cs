@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -29,9 +30,9 @@ namespace UserStore.DAL.Repositories
         }
 
 
-        public IEnumerable<ApplicationUser> Find(Func<ApplicationUser, bool> predicate)
+        public IQueryable<ApplicationUser> Find(Func<ApplicationUser, bool> predicate)
         {
-            return db.Users.Where(predicate).ToList();
+            return db.Users.Where(predicate).AsQueryable();
         }
 
         public ApplicationUser FindFirstOrDefault(Func<ApplicationUser, bool> predicate)
@@ -55,9 +56,9 @@ namespace UserStore.DAL.Repositories
             throw new NotImplementedException();
         }
 
-        IEnumerable<ApplicationUser> IRepository<ApplicationUser,string>.GetAll()
+        IQueryable<ApplicationUser> IRepository<ApplicationUser,string>.GetAll()
         {
-            return db.Users;
+            return db.Users.AsNoTracking().AsQueryable();
         }
     }
 }
