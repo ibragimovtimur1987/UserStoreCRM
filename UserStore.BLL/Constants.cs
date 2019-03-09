@@ -6,11 +6,16 @@ using System.Threading.Tasks;
 
 namespace UserStore.BLL
 {
-    class Constants
+    public class Constants
     {
         public static class Path
         {
             public static string PathPoster = @"App_Data\uploads\poster";
+        }
+        public static class Role
+        {
+            public const string Manager = "manager";
+            public const string User = "user";
         }
     }
 }
