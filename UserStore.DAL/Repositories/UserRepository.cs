@@ -28,9 +28,20 @@ namespace UserStore.DAL.Repositories
             throw new NotImplementedException();
         }
 
+
         public IEnumerable<ApplicationUser> Find(Func<ApplicationUser, bool> predicate)
         {
             return db.Users.Where(predicate).ToList();
+        }
+
+        public ApplicationUser FindFirstOrDefault(Func<ApplicationUser, bool> predicate)
+        {
+            throw new NotImplementedException();
+        }
+
+        public ApplicationUser FindLastOrDefault(Func<ApplicationUser, bool> predicate)
+        {
+            throw new NotImplementedException();
         }
 
         public ApplicationUser Get(string id)

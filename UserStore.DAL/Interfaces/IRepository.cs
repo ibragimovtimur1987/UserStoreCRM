@@ -9,6 +9,7 @@ namespace UserStore.Data.Interfaces
         IEnumerable<T> GetAll();
         T Get(S id);
         IEnumerable<T> Find(Func<T, Boolean> predicate);
+        T FindLastOrDefault(Func<T, Boolean> predicate);
         void Create(T item);
         void Update(T item);
         void Delete(int id);

@@ -44,7 +44,10 @@ namespace UserStore.DAL.Repositories
         {
             return db.Requests.Where(predicate).ToList();
         }
-
+        public Request FindLastOrDefault(Func<Request, Boolean> predicate)
+        {
+            return db.Requests.Include("Author").LastOrDefault(predicate);
+        }
         public void Delete(int id)
         {
             Request Request = db.Requests.Find(id);

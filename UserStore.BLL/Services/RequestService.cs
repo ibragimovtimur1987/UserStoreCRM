@@ -94,7 +94,11 @@ namespace UserStore.BLL.Services
         {
             Database.Dispose();
         }
-
+        public Request GetMyRequestToday(string userId)
+        {
+            DateTime yesterday = DateTime.Now.AddDays(-1);
+            return Database.Requests.FindLastOrDefault(x => x.Author != null && x.Author.Id == userId && x.Create > yesterday);
+        }
         public byte[] DownloadFile(string filepath)
         {
             string fullName = Path.Combine(GetBaseDir(), filepath);
@@ -135,14 +139,14 @@ namespace UserStore.BLL.Services
         }
         public async Task SendEmailAsync(Request Request)
         {
-            MailAddress from = new MailAddress("somemail@gmail.com", "Tom");
-            MailAddress to = new MailAddress("somemail@yandex.ru");
-            MailMessage mail = new MailMessage(from, to);
-            mail.Subject = Request.Theme;
-            mail.Body = Request.Message;
-            SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);
-            smtp.Credentials = new NetworkCredential("somemail@gmail.com", "mypassword");
-            await smtp.SendMailAsync(mail);
+                MailAddress from = new MailAddress("somemail@gmail.com", "Tom");
+                MailAddress to = new MailAddress("somemail@yandex.ru");
+                MailMessage mail = new MailMessage(from, to);
+                mail.Subject = Request.Theme;
+                mail.Body = Request.Message;
+                SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);
+                smtp.Credentials = new NetworkCredential("somemail@gmail.com", "mypassword");
+                await smtp.SendMailAsync(mail);
         }
     } 
 }

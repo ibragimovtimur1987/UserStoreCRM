@@ -56,18 +56,29 @@ namespace UserStore.Web.Controllers
         // Добавление
         public ActionResult Create()
         {
-            return PartialView("Create");
+            string currentUserId = User.Identity.GetUserId();
+            Request request = RequestService.GetMyRequestToday(currentUserId);
+            if (request!= null)
+            {
+                DateTime sendDate = request.Create.AddDays(1);
+                ViewBag.SendDate = sendDate.ToString("F");
+                return PartialView("Message");
+            }
+            else
+            {
+                return PartialView("Create");
+            }
         }    
         // Добавление
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public async Task<ActionResult> Create(RequestViewModel RequestViewModel, HttpPostedFileBase file)
+        public ActionResult Create(RequestViewModel RequestViewModel, HttpPostedFileBase file)
         {
             Request Request = RequestViewModel.CreateRequest();
             RequestService.AddRequest(Request, User.Identity.GetUserId(), file);
-            await RequestService.SendEmailAsync(Request);
-            return RedirectToAction("Index");
+            //await RequestService.SendEmailAsync(Request);
+            return PartialView("Success");
         }
     }
 }

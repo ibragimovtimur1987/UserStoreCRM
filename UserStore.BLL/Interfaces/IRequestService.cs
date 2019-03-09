@@ -21,5 +21,6 @@ namespace UserStore.BLL.Interfaces
         byte[] DownloadFile(string filepath);
         Task SetInitialData(UserDTO adminDto, List<string> roles);
         Task SendEmailAsync(Request Request);
+        Request GetMyRequestToday(string userId);
     } 
 }
