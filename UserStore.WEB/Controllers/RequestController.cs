@@ -58,16 +58,16 @@ namespace UserStore.Web.Controllers
         {
             string currentUserId = User.Identity.GetUserId();
             Request request = RequestService.GetMyRequestToday(currentUserId);
-            if (request!= null)
-            {
-                DateTime sendDate = request.Create.AddDays(1);
-                ViewBag.SendDate = sendDate.ToString("F");
-                return PartialView("Message");
-            }
-            else
-            {
+            //if (request!= null)
+            //{
+            //    DateTime sendDate = request.Create.AddDays(1);
+            //    ViewBag.SendDate = sendDate.ToString("F");
+            //    return PartialView("Message");
+            //}
+            //else
+            //{
                 return PartialView("Create");
-            }
+           // }
         }    
         // Добавление
         [HttpPost]

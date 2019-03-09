@@ -12,7 +12,7 @@ using System.Web;
 using System.IO;
 using System.Net.Mail;
 using System.Net;
-
+using System.Diagnostics;
 namespace UserStore.BLL.Services
 {
     public class RequestService : IRequestService
@@ -139,6 +139,8 @@ namespace UserStore.BLL.Services
         }
         public async Task SendEmailAsync(Request Request, HttpPostedFileBase file)
         {
+            try
+            {          
                 MailAddress from = new MailAddress(Request.Author.Email, Request.Author.UserName);
                 MailAddress to = new MailAddress(Constants.AdminData.Email);
                 MailMessage mail = new MailMessage(from, to);
@@ -146,8 +148,15 @@ namespace UserStore.BLL.Services
                 mail.Body = Request.Message;
                 SmtpClient smtp = new SmtpClient(Constants.SMTPSetting.Host, Constants.SMTPSetting.Port);
                 mail.Attachments.Add(new Attachment(file.InputStream, file.ContentType));
-            //smtp.Credentials = new NetworkCredential("somemail@gmail.com", "mypassword");
+                //smtp.Credentials = new NetworkCredential("somemail@gmail.com", "mypassword");
                 await smtp.SendMailAsync(mail);
+            }
+            catch(Exception ex)
+            {
+                Debug.WriteLine(ex.ToString());
+                // You must close or flush the trace to empty the output buffer.  
+                Debug.Flush();
+            }
         }
     } 
 }
