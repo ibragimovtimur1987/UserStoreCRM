@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace UserStore.BLL
+namespace UserStore.DAL
 {
-    public class Constants
+    public static class Constants
     {
         public static class Path
         {

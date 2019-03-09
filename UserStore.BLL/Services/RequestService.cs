@@ -13,6 +13,7 @@ using System.IO;
 using System.Net.Mail;
 using System.Net;
 using System.Diagnostics;
+using Constants = UserStore.DAL.Constants;
 namespace UserStore.BLL.Services
 {
     public class RequestService : IRequestService

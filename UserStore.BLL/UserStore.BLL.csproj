@@ -56,7 +56,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Constants.cs" />
     <Compile Include="DTO\UserDTO.cs" />
     <Compile Include="Extension.cs" />
     <Compile Include="Infrastructure\OperationDetails.cs" />

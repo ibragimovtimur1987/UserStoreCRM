@@ -9,7 +9,8 @@ using UserStore.BLL.DTO;
 using System.Security.Claims;
 using UserStore.BLL.Interfaces;
 using UserStore.BLL.Infrastructure;
-using static UserStore.BLL.Constants;
+using UserStore.BLL;
+using UserStore.DAL;
 
 namespace UserStore.Controllers
 {
@@ -126,9 +127,9 @@ namespace UserStore.Controllers
         {
             await RequestService.SetInitialData(new UserDTO
             {
-                Email = AdminData.Email,
-                UserName = AdminData.UserName,
-                Password = AdminData.Password,
+                Email = Constants.AdminData.Email,
+                UserName = Constants.AdminData.UserName,
+                Password = Constants.AdminData.Password,
                 Role = "admin",
             }, new List<string> { "user", "admin" });
         }
