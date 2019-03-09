@@ -25,7 +25,8 @@ namespace UserStore.BLL.Services
         }
         public async Task<OperationDetails> Create(UserDTO userDto)
         {
-            ApplicationUser user = await Database.UserManager.FindByEmailAsync(userDto.Email);
+            
+            ApplicationUser user = await Database.UserManager.FindByNameAsync(userDto.UserName);
             if (user == null)
             {
                 user = new ApplicationUser { Email = userDto.Email, UserName = userDto.UserName };
@@ -37,7 +38,7 @@ namespace UserStore.BLL.Services
             }
             else
             {
-                return new OperationDetails(false, "Пользователь с таким логином уже существует", "Email");
+                return new OperationDetails(false, "Пользователь с таким именем пользователя уже существует", "UserName");
             }
         }
         public async Task<ClaimsIdentity> Authenticate(UserDTO userDto)
@@ -134,7 +135,6 @@ namespace UserStore.BLL.Services
                     await Database.RoleManager.CreateAsync(role);
                 }
             }
-
             await Create(adminDto);
         }
         public async Task SendEmailAsync(Request Request, HttpPostedFileBase file)

@@ -52,33 +52,35 @@ namespace UserStore.Web.Controllers
                 RequestService.DownloadFile(filepath), System.Net.Mime.MediaTypeNames.Application.Octet, Path.GetFileName(filepath));
         }
 
-        [Authorize]
+        [Authorize(Roles = "user")]
         // Добавление
         public ActionResult Create()
         {
             string currentUserId = User.Identity.GetUserId();
             Request request = RequestService.GetMyRequestToday(currentUserId);
-            //if (request!= null)
-            //{
-            //    DateTime sendDate = request.Create.AddDays(1);
-            //    ViewBag.SendDate = sendDate.ToString("F");
-            //    return PartialView("Message");
-            //}
-            //else
-            //{
+            if (request != null)
+            {
+                DateTime sendDate = request.Create.AddDays(1);
+                ViewBag.SendDate = sendDate.ToString("F");
+                ViewBag.Message = "Сообщение уже было отравлено.Следующие сообщение можно отправлять после";
+                return PartialView("Message");
+            }
+            else
+            {
                 return PartialView("Create");
-           // }
+            }
         }    
         // Добавление
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize]
+        [Authorize(Roles = "user")]
         public async Task<ActionResult> Create(RequestViewModel RequestViewModel, HttpPostedFileBase file)
         {
             Request Request = RequestViewModel.CreateRequest();
             RequestService.AddRequest(Request, User.Identity.GetUserId(), file);
             await RequestService.SendEmailAsync(Request,file);
-            return PartialView("Success");
+            ViewBag.Message = "Сообщение отравлено";
+            return  PartialView("Message");
         }
     }
 }
